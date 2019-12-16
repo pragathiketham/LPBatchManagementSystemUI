@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>  
+          <class name="com.virtusa.otoone.Address" table="address">  
+          <id name="addressId">  
+          <generator class="foreign">  
+          <param name="property">employee</param>  
+          </generator>  
+          </id>  
+          
+          <property name="city"></property>  
+          <property name="state"></property>  
+          <property name="country"></property>  
+          <property name="pincode"></property>  
+            
+          <one-to-one name="employee"></one-to-one>  
+          </class>  
+            
+          </hibernate-mapping>  

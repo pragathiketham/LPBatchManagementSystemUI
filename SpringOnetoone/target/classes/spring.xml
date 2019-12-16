@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+  
+    <bean id="dataSource" class="org.springframe.jdbc.datasource.DriverManagerDataSource">  
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/demo" />
+		<property name="username" value="root" />
+		<property name="password" value="R@0t123" />
+
+    </bean>  
+      
+    <bean id="mysessionFactory"  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource"></property> 
+        <property name="mappingResources">
+        <list>
+         <value>employee.hbm.xml</value>
+         <value>address.hbm.xml</value>
+        </list>
+        </property> 
+                  
+        <property name="hibernateProperties">  
+            <props>  
+                
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+
+        <prop key="hbm2ddl.auto">create</prop>   
+                  
+            </props>  
+        </property>  
+    </bean>  
+      
+    <bean id="template" class="org.springframework.orm.hibernate5.HibernateTemplate">  
+    <property name="sessionFactory" ref="mysessionFactory"></property> 
+    <property name="checkWriteOperations" value="false"></property> 
+    </bean>  
+      
+    <bean id="d" class="com.virtusa.otoone.EmployeeDao">  
+    <property name="template" ref="template"></property>  
+    </bean>  
+      
+      
+    </beans>  
